@@ -8,5 +8,5 @@ import javax.validation.constraints.*
 class DropwizardTestConfiguration() : Configuration() {
     @field:NotEmpty
     @get:JsonProperty
-    public var foo: String? = null
+    var foo: String? = null
 }

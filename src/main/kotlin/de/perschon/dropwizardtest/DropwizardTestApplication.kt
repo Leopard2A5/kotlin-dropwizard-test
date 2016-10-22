@@ -10,16 +10,21 @@ fun main(args: Array<String>) {
 }
 
 class DropwizardTestApplication1 : Application<DropwizardTestConfiguration>() {
+
     override fun run(
-            configuration: DropwizardTestConfiguration?,
-            environment: Environment?
+        configuration: DropwizardTestConfiguration?,
+        environment: Environment?
+    ) {
+        // TODO implement
+        println("foo: ${configuration?.foo}")
+    }
+
+    override fun initialize(
+        bootstrap: Bootstrap<DropwizardTestConfiguration>?
     ) {
         // TODO implement
     }
 
-    override fun initialize(bootstrap: Bootstrap<DropwizardTestConfiguration>?) {
-
-    }
     override fun getName(): String {
         return "dropwizard-test (kotlin)"
     }
