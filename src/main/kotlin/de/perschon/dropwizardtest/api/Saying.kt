@@ -4,16 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import org.hibernate.validator.constraints.Length
 
 data class Saying(
+	@field:JsonProperty
 	private val id: Long,
+
+	@field:JsonProperty
 	private val content: String
 ) {
-	@JsonProperty
-	fun getId(): Long {
-		return id
-	}
-
-	@JsonProperty
-	fun getContent(): String {
-		return content
-	}
 }
