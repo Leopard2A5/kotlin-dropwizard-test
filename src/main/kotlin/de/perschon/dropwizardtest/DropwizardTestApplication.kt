@@ -1,9 +1,7 @@
 package de.perschon.dropwizardtest
 
-import de.perschon.dropwizardtest.DropwizardTestConfiguration
 import de.perschon.dropwizardtest.health.TemplateHealthCheck
 import de.perschon.dropwizardtest.resources.HelloWorldResource
-import io.dropwizard.Application
 import io.dropwizard.setup.Bootstrap
 import io.dropwizard.setup.Environment
 
@@ -11,23 +9,19 @@ fun main(args: Array<String>) {
     DropwizardTestApplication1().run(*args)
 }
 
-class DropwizardTestApplication1 : Application<DropwizardTestConfiguration>() {
+class DropwizardTestApplication1 : KotlinApplication<DropwizardTestConfiguration>() {
 
-    override fun run(
-        configuration: DropwizardTestConfiguration?,
-        environment: Environment?
+    override fun nullSafeRun(
+        configuration: DropwizardTestConfiguration,
+        environment: Environment
     ) {
-		if (configuration == null || environment == null) {
-			throw NullPointerException()
-		}
+		val template = checkNotNull(configuration.template)
+		val defaultName = checkNotNull(configuration.defaultName)
 
-		val templateHealthCheck = TemplateHealthCheck(checkNotNull(configuration.template))
+		val templateHealthCheck = TemplateHealthCheck(template)
 		environment.healthChecks().register("template", templateHealthCheck)
 
-		val resource = HelloWorldResource(
-			checkNotNull(configuration.template),
-			checkNotNull(configuration.defaultName)
-		)
+		val resource = HelloWorldResource(template, defaultName)
 		environment.jersey().register(resource)
 	}
 
