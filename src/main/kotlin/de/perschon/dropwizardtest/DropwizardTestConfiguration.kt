@@ -8,9 +8,9 @@ import javax.validation.constraints.*
 class DropwizardTestConfiguration() : Configuration() {
     @field:NotEmpty
     @get:JsonProperty
-    var template: String? = null
+    var template: String = ""
 
     @field:NotEmpty
     @get:JsonProperty
-    var defaultName: String? = null
+    var defaultName: String = ""
 }

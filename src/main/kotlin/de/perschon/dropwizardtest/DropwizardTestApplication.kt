@@ -12,16 +12,13 @@ fun main(args: Array<String>) {
 class DropwizardTestApplication1 : KotlinApplication<DropwizardTestConfiguration>() {
 
     override fun nullSafeRun(
-        configuration: DropwizardTestConfiguration,
+        config: DropwizardTestConfiguration,
         environment: Environment
     ) {
-		val template = checkNotNull(configuration.template)
-		val defaultName = checkNotNull(configuration.defaultName)
-
-		val templateHealthCheck = TemplateHealthCheck(template)
+		val templateHealthCheck = TemplateHealthCheck(config.template)
 		environment.healthChecks().register("template", templateHealthCheck)
 
-		val resource = HelloWorldResource(template, defaultName)
+		val resource = HelloWorldResource(config.template, config.defaultName)
 		environment.jersey().register(resource)
 	}
 
