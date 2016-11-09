@@ -25,4 +25,11 @@ dependencies {
     "io.dropwizard:dropwizard-core:${dropwizardVersion}",
     "org.jetbrains.kotlin:kotlin-stdlib:${kotlinVersion}"
   )
+
+  testCompile (
+    "org.assertj:assertj-core:3.5.2",
+    "junit:junit:4.12",
+    "io.dropwizard:dropwizard-client:1.0.3",
+    "io.dropwizard:dropwizard-testing:1.0.3"
+  )
 }
