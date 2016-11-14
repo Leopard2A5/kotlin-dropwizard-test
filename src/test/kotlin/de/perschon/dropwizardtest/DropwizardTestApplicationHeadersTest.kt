@@ -1,23 +1,25 @@
 package de.perschon.dropwizardtest
 
-import io.dropwizard.Configuration
 import io.dropwizard.client.JerseyClientBuilder
+import io.dropwizard.testing.ResourceHelpers.resourceFilePath
 import io.dropwizard.testing.junit.DropwizardAppRule
-import org.eclipse.jetty.servlets.CrossOriginFilter
+import org.assertj.core.api.Assertions.assertThat
+import org.assertj.core.api.Assertions.entry
 import org.eclipse.jetty.servlets.CrossOriginFilter.ACCESS_CONTROL_REQUEST_HEADERS_HEADER
 import org.eclipse.jetty.servlets.CrossOriginFilter.ACCESS_CONTROL_REQUEST_METHOD_HEADER
 import org.junit.BeforeClass
 import org.junit.ClassRule
 import org.junit.Test
 import javax.ws.rs.client.Client
-import org.assertj.core.api.Assertions.assertThat
-import org.assertj.core.data.MapEntry
 
 class DropwizardTestApplicationHeadersTest {
 
 	companion object {
 		@ClassRule @JvmField
-		val RULE = DropwizardAppRule<DropwizardTestConfiguration>(DropwizardTestApplication1::class.java)
+		val RULE = DropwizardAppRule(
+			DropwizardTestApplication1::class.java,
+			resourceFilePath("test.yml")
+		)
 		private var client: Client? = null
 
 		@BeforeClass
@@ -37,8 +39,9 @@ class DropwizardTestApplicationHeadersTest {
 			.options()
 		val headers = response.headers
 
-		println(headers)
-//		assertThat(headers).contains(MapEntry.entry())
+		assertThat(headers).contains(entry("Access-Control-Allow-Credentials", mutableListOf("true")))
+		assertThat(headers).contains(entry("Access-Control-Allow-Headers", mutableListOf("X-Requested-With,Content-Type,Accept,Origin")))
+		assertThat(headers).contains(entry("Access-Control-Allow-Methods", mutableListOf("GET,PUT,POST,DELETE,OPTIONS")))
 	}
 
 }
