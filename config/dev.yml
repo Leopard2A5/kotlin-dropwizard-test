@@ -1,3 +1,10 @@
 ---
+corsAllowedOrigins:
+  - http://localhost:3000
+  - http://testurl.com
+corsAllowedMethods:
+  - GET
+  - OPTIONS
+
 template: Hello, %s!
 defaultName: Stranger

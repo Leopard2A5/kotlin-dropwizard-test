@@ -13,15 +13,15 @@ fun main(args: Array<String>) {
 class DropwizardTestApplication1 : KotlinApplication<DropwizardTestConfiguration>() {
 
     override fun nullSafeRun(
-        config: DropwizardTestConfiguration,
-        environment: Environment
+		configuration: DropwizardTestConfiguration,
+		environment: Environment
     ) {
-		enableCORSHeaders(environment)
+		enableCORSHeaders(environment, configuration)
 
-		val templateHealthCheck = TemplateHealthCheck(config.template)
+		val templateHealthCheck = TemplateHealthCheck(configuration.template)
 		environment.healthChecks().register("template", templateHealthCheck)
 
-		val resource = HelloWorldResource(config.template, config.defaultName)
+		val resource = HelloWorldResource(configuration.template, configuration.defaultName)
 		environment.jersey().register(resource)
 	}
 

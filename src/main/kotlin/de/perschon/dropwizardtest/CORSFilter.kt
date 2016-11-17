@@ -7,7 +7,10 @@ import javax.servlet.DispatcherType
 
 object CORSFilter {
 
-	fun enableCORSHeaders(environment: Environment) {
+	fun enableCORSHeaders(
+		environment: Environment,
+		configuration: DropwizardTestConfiguration
+	) {
 		val filter = environment.servlets().addFilter("CORSFilter", CrossOriginFilter::class.java)
 		with(filter) {
 			addMappingForUrlPatterns(
@@ -15,12 +18,9 @@ object CORSFilter {
 				false,
 				environment.applicationContext.contextPath + "*"
 			)
-			setInitParameter("allowedOrigins", "http://localhost:3000")
+			setInitParameter("allowedOrigins", configuration.corsAllowedOrigins.joinToString(","))
+			setInitParameter("allowedMethods", configuration.corsAllowedMethods.joinToString(","))
 			setInitParameter("allowedHeaders", "X-Requested-With,Content-Type,Accept,Origin")
-			setInitParameter("allowedMethods", "GET,PUT,POST,DELETE,OPTIONS")
-			setInitParameter("Access-Control-Allow-Origin", "/*")
-			setInitParameter("Access-Control-Allow-Credentials", "true")
-			setInitParameter("Access-Control-Expose-Headers", "true")
 		}
 	}
 

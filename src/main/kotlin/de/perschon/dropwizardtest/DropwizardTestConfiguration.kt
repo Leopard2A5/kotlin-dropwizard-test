@@ -8,6 +8,14 @@ import javax.validation.constraints.*
 class DropwizardTestConfiguration() : Configuration() {
     @field:NotEmpty
     @get:JsonProperty
+    var corsAllowedOrigins: Array<String> = arrayOf()
+
+    @field:NotEmpty
+    @get:JsonProperty
+    var corsAllowedMethods: Array<String> = arrayOf()
+
+    @field:NotEmpty
+    @get:JsonProperty
     var template: String = ""
 
     @field:NotEmpty
