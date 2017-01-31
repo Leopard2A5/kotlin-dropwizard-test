@@ -5,9 +5,9 @@ import org.hibernate.validator.constraints.Length
 
 data class Saying(
 	@field:JsonProperty
-	private val id: Long,
+	val id: Long,
 
 	@field:JsonProperty
-	private val content: String
+	val content: String
 ) {
 }
